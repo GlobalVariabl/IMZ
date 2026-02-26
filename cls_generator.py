@@ -1,14 +1,14 @@
 import random
 from collections import deque
-
-
+import sys
+sys.setrecursionlimit(3000)  # set new limit
 class MazeGenerator:
-    def __init__(self, width: int, height: int, entry: tuple, exit: tuple,
+    def __init__(self, width: int, height: int, entry: tuple, exit_: tuple,
                  output_file: str, perfect: bool):
         self.width = width
         self.height = height
         self.entry = entry
-        self.exit = exit
+        self.exit_ = exit_
         self.output_file = output_file
         self.perfect = perfect
         self.maze = [[15 for _ in range(width)] for _ in range(height)]
@@ -85,6 +85,12 @@ class MazeGenerator:
 
         creat_path(self.entry[0], self.entry[1])
 
+    def re_import_with_new_maze(self):
+        self.maze = [[15 for _ in range(self.width)]
+                     for _ in range(self.height)]
+        self.generate_maze()
+        self.import_maze()
+
     def solve_the_maze(self) -> str:
         visited = [[False for _
                     in range(self.width)] for _ in range(self.height)]
@@ -95,7 +101,7 @@ class MazeGenerator:
 
         while (queue):
             x, y, path = queue.popleft()
-            if (x, y) == self.exit:
+            if (x, y) == self.exit_:
                 return path
             for d, (d_x, d_y) in self.directions.items():
                 next_x, next_y = x + d_x, y + d_y
@@ -107,13 +113,13 @@ class MazeGenerator:
                         queue.append((next_x, next_y, path + "NESW"[d]))
         return ""
 
-    def import_maze(self, output_file: str) -> None:
+    def import_maze(self) -> None:
         solution = self.solve_the_maze()
-        with open(output_file, "w") as f:
+        with open(self.output_file, "w") as f:
             for row in self.maze:
                 line = "".join(f"{block:X}" for block in row) + "\n"
                 f.write(line)
             f.write("\n")
             f.write(f"{self.entry[0]},{self.entry[1]}\n")
-            f.write(f"{self.exit[0]},{self.exit[1]}\n")
+            f.write(f"{self.exit_[0]},{self.exit_[1]}\n")
             f.write(solution + "\n")
