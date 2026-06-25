@@ -18,7 +18,7 @@ from step_one import database
         'D': [{'to': 'A', 'capacity': 1, 'state': 'empty', 'holde': 0}, {'to': 'B', 'capacity': 1, 'state': 'empty', 'holde': 0}, {'to': 'goal', 'capacity': 1, 'state': 'empty', 'holde': 0}]}, 
     'distances': {
             'start': [5, 'F'], 'goal': [0, 'goal'], 'A': ["inf", 'A'], 'B': [6, 'start'], 
-            'C': ["inf", 'C'], 'D': ["inf", 'D'], 'F': [3, 'goal']}}
+            'C': ["inf", 'C'], 'D': ["inf", 'D'], 'F': [3, 'goal ']}}
 
 
 

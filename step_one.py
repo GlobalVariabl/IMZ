@@ -68,11 +68,6 @@ class RegEx_line:
             'connection': self.connections
         }
         
-
-        
-
-
-    
     @staticmethod
     def validit_drones(line: str)->str:
         """
